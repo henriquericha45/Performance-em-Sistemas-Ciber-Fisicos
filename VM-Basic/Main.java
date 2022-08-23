@@ -16,19 +16,16 @@ public class Main {
         IO io = new IO(System.out);
         RAM ram = new RAM(128);
         CPU cpu = new CPU(io, ram);
+        Cache cache = new Cache(8, ram);
 
         try {
 
             // carrega "programa" na memória
 
-            final int inicio = 10;
+            ram.Write(1, 0);
+            ram.Write(2, 127);
 
-            ram.Write(inicio, 120);
-            ram.Write(inicio+1, 128);
-
-            // executa programa
-
-            cpu.Run(inicio);
+            cpu.Run(1);
 
         } catch (EnderecoInvalido e) {
             System.err.println("Erro: " + e);
