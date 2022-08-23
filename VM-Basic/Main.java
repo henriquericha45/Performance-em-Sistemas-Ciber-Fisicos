@@ -15,15 +15,15 @@ public class Main {
 
         IO io = new IO(System.out);
         RAM ram = new RAM(128);
-        CPU cpu = new CPU(io, ram);
         Cache cache = new Cache(8, ram);
+        CPU cpu = new CPU(io, cache);
 
         try {
 
             // carrega "programa" na memória
 
             ram.Write(1, 0);
-            ram.Write(2, 127);
+            ram.Write(2, 128);
 
             cpu.Run(1);
 
