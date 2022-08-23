@@ -14,7 +14,7 @@ public class CPU {
     private final Memoria mem;
     private final IO es;
 
-    public CPU(IO es, Memoria mem) {
+    public CPU(Memoria mem, IO es) {
         this.es = es;
         this.mem = mem;
     }

@@ -27,6 +27,7 @@ abstract class Memoria {
     public Memoria(int capacidade) { 
         this.capacidade = capacidade; 
     }
+    
     public void VerificaEndereco(int endereco) throws EnderecoInvalido {
         if (endereco < 0 || endereco >= capacidade) {
             throw new EnderecoInvalido(endereco);
