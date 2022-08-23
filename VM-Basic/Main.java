@@ -15,7 +15,8 @@ public class Main {
 
         IO io = new IO(System.out);
         RAM ram = new RAM(128);
-        CPU cpu = new CPU(io, ram);
+        Cache cache = new Cache(8, ram);
+        CPU cpu = new CPU(io, cache);
 
         try {
 

@@ -2,7 +2,7 @@ public class Cache extends Memoria{
     private int[] dados;
     private RAM ram;
 
-    public Cache(int capacidade) {
+    public Cache(int capacidade, RAM ram) {
         super(capacidade);
         dados = new int[capacidade];
         this.ram = ram;
