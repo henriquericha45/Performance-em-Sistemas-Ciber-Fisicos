@@ -13,18 +13,38 @@ public class Cache extends Memoria{
     }
 
     int Read(int endereco) throws EnderecoInvalido {
-
-        VerificaEndereco(endereco);
         if(endereco < (this.enderecoInicial + dados.length-1) && endereco >= this.enderecoInicial){
             return dados[endereco - this.enderecoInicial];
+        } else {
+            pullCache(endereco);
+            return Read(endereco);
         }
-        // nao ta na cache
-        return dados[endereco];
     }
 
     void Write(int endereco, int valor) throws EnderecoInvalido {
-        VerificaEndereco(endereco);
-        dados[endereco] = valor;
+        if(endereco < (this.enderecoInicial + dados.length-1) && endereco >= this.enderecoInicial) {
+            dados[endereco-enderecoInicial] = valor;
+            modificada = true;
+        } else {
+            pullCache(endereco);
+            Write(endereco, valor);
+        }
+    }
+
+    public void pushCache() throws EnderecoInvalido {
+        for(int i=0; i < capacidade; i++) {
+            ram.Write(enderecoInicial+1, dados[i]);        
+        }
+    }
+
+    public void pullCache(int enderecoInicial) throws EnderecoInvalido{
+        if(modificada){
+            pushCache();
+        }
+        this.enderecoInicial = enderecoInicial;
+        for(int i=0; i< capacidade; i++) {
+            dados[i] = ram.Read(enderecoInicial+1);
+        }
     }
 
     // ------------------------------

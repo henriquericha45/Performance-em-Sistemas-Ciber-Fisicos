@@ -28,7 +28,7 @@ public class Main {
 
             // carrega "programa" na memória
             ram.Write(inicio, 118);
-            ram.Write(inicio+1, 130);
+            ram.Write(inicio+1, 126);
 
             // executa programa
 
