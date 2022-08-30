@@ -14,7 +14,7 @@ public class CPU {
         io.output("Executando programa no endereco " + PC);
 
         while(memoria.read(PC) != -1) {
-
+            
         }
 
 
