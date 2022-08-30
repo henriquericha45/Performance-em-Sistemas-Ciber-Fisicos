@@ -1,7 +1,10 @@
 public class CPU {
-    private int PC;
+    private int programCounter = 0;
     private final Memoria memoria;
     private final IO io;
+    private int registradorA = 0;
+    private int registradorB = 0;
+    private int registradorC = 0;
 
     public CPU(Memoria memoria, IO io) {
         this.memoria = memoria;
@@ -9,16 +12,18 @@ public class CPU {
     }
 
     public void run(int endereco) throws EnderecoInvalido {
-        PC = endereco;
+        programCounter = endereco;
 
-        io.output("Executando programa no endereco " + PC);
 
-        while(memoria.read(PC) != -1) {
-            
+        registradorA = memoria.read(programCounter++);
+        registradorB = memoria.read(programCounter++);
+
+        registradorC = 1;
+        while(registradorA <= registradorB) {
+            memoria.write(registradorA, registradorC);           
+            io.output("> " + registradorA + " -> " + registradorC + "\n");
+            ++registradorC;
+            ++registradorA;
         }
-
-
     }
-
-
 }

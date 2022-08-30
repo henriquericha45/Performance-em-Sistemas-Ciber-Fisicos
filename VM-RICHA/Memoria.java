@@ -24,6 +24,6 @@ abstract class Memoria {
         }
     }
 
-    public abstract int read(int endereco) throws EnderecoInvalido;
-    public abstract void write(int endereco, int data) throws EnderecoInvalido;
+    abstract int read(int endereco) throws EnderecoInvalido;
+    abstract void write(int endereco, int data) throws EnderecoInvalido;
 }

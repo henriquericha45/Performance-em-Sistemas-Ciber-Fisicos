@@ -7,8 +7,4 @@ public class IO {
     public void output(String s){
         saida.print(s);
     }
-
-    public void output(int i){
-        saida.print(i);
-    }
 }
