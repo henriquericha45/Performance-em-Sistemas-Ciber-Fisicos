@@ -12,6 +12,7 @@ public class Cache extends Memoria{
         this.modificada = false;
     }
 
+    @Override
     int Read(int endereco) throws EnderecoInvalido {
         if(endereco < (this.enderecoInicial + dados.length-1) && endereco >= this.enderecoInicial){
             return dados[endereco - this.enderecoInicial];
@@ -21,6 +22,7 @@ public class Cache extends Memoria{
         }
     }
 
+    @Override
     void Write(int endereco, int valor) throws EnderecoInvalido {
         if(endereco < (this.enderecoInicial + dados.length-1) && endereco >= this.enderecoInicial) {
             dados[endereco-enderecoInicial] = valor;

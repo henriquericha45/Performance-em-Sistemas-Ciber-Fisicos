@@ -5,28 +5,29 @@
 //
 // IO <- CPU <-> RAM
 //
+
+package pscf;
+
 public class Main {
 
     public static void main(String[] args) {
 
-        IO io = new IO(System.out);
-
-        io.Output("* Arquiterura von Neumann Básica - PSCF\n");
+        System.out.println("* Arquitetura von Neumann Básica - PSCF\n");
 
         // cria componentes da arquitetura
 
-        
+        IO io = new IO(System.out);
         RAM ram = new RAM(128);
-        Cache cache = new Cache(8, ram);
-        CPU cpu = new CPU(cache, io);
+        CPU cpu = new CPU(io, ram);
 
         try {
 
+            // carrega "programa" na memória
+
             final int inicio = 10;
 
-            // carrega "programa" na memória
-            ram.Write(inicio, 118);
-            ram.Write(inicio + 1, 130);
+            ram.Write(inicio, 120);
+            ram.Write(inicio+1, 128);
 
             // executa programa
 
