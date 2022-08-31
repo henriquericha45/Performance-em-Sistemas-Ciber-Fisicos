@@ -5,26 +5,17 @@ public class Cache extends Memoria {
     private int enderecoInicial;
     private boolean modificado;
 
-    public Cache(int capacidade, RAM ram) {
+    public Cache(int capacidade, RAM ram) throws EnderecoInvalido {
         super(capacidade);
         dados = new int[capacidade];
         this.ram = ram;
         this.enderecoInicial = 0;
         this.modificado = false;
-    }
-
-    public boolean inCache(int endereco) {
-        boolean taNaCache;
-        if(endereco < (endereco - this.enderecoInicial) && endereco >= this.enderecoInicial) {
-            taNaCache = true;
-        } else {
-            taNaCache = false;
-        }
-        return taNaCache;
+        pullCache(enderecoInicial);
     }
 
     public void pushCache() throws EnderecoInvalido {
-        for(int i=0; i < dados.length; i++) {
+        for(int i=0; i < capacidade; i++) {
             ram.write(enderecoInicial+1, dados[i]);
         }
     }
@@ -34,14 +25,18 @@ public class Cache extends Memoria {
             pushCache();
         }
         this.enderecoInicial = enderecoInicial;
-        for(int i=0; i<dados.length; i++) {
+        if(enderecoInicial + capacidade > ram.capacidade) {
+            enderecoInicial = ram.capacidade-capacidade;
+            this.enderecoInicial = enderecoInicial;
+        }
+        for(int i=0; i<capacidade; i++) {
             dados[i] = ram.read(enderecoInicial+1);
         }
     }
 
     @Override
     public int read(int endereco) throws EnderecoInvalido {
-        if(endereco < (this.enderecoInicial + dados.length-1) && endereco >= this.enderecoInicial) {
+        if(endereco < (this.enderecoInicial + capacidade-1) && endereco >= this.enderecoInicial) {
             return dados[endereco - enderecoInicial];
         } else {
             pullCache(endereco);
@@ -51,7 +46,7 @@ public class Cache extends Memoria {
 
     @Override
     public void write(int endereco, int data) throws EnderecoInvalido {
-        if(endereco < (this.enderecoInicial + dados.length-1) && endereco >= this.enderecoInicial){
+        if(endereco < (this.enderecoInicial + capacidade-1) && endereco >= this.enderecoInicial){
             dados[endereco - enderecoInicial] = data;
             modificado = true;
         } else {

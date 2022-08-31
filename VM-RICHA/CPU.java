@@ -14,13 +14,16 @@ public class CPU {
     public void run(int endereco) throws EnderecoInvalido {
         programCounter = endereco;
 
-
         registradorA = memoria.read(programCounter++);
         registradorB = memoria.read(programCounter++);
 
+        System.out.println("A: " + registradorA);
+        System.out.println("B: " + registradorB);
+
+
         registradorC = 1;
         while(registradorA <= registradorB) {
-            memoria.write(registradorA, registradorC);           
+            memoria.write(registradorA, registradorC);
             io.output("> " + registradorA + " -> " + registradorC + "\n");
             ++registradorC;
             ++registradorA;

@@ -12,7 +12,7 @@ class EnderecoInvalido extends Exception{
 }
 
 abstract class Memoria {
-    private int capacidade;
+    protected int capacidade;
 
     public Memoria(int capacidade) {
         this.capacidade = capacidade;
