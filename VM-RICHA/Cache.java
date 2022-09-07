@@ -14,6 +14,17 @@ public class Cache extends Memoria {
         pullCache(enderecoInicial);
     }
 
+    public int cacheHit() {
+
+        return 0;
+    }
+
+    public void cacheMiss() {
+        
+    }
+
+
+
     public void pushCache() throws EnderecoInvalido {
         for(int i=0; i < capacidade; i++) {
             ram.write(enderecoInicial+1, dados[i]);
