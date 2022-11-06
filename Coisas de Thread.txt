@@ -1,0 +1,6 @@
+Escalonador: Gerencia qual thread vai ser executada
+	- Escalonador não-preemptivo: 
+		- troca de contexto: quando o processo termina ou é bloqueado
+		- se outro processo é chamado, o que está rodando espera até o atual acabar
+	- Escalonador preemptivo:
+		- troca de contexto: quando o processo termina ou é bloqueado ou quando termina seu quantum ( tempo )
