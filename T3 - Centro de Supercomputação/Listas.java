@@ -1,10 +1,12 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Listas {
     private static ArrayList <Funcionario> listaDeEspera = new ArrayList<Funcionario>();
     private static ArrayList <Funcionario> listaFuncionarios = new ArrayList<Funcionario>();
     private static ArrayList <Funcionario> listaUsando = new ArrayList<Funcionario>();
     Funcionario f = new Funcionario();
+    static Random random = new Random();
     
     public Listas() {
 
@@ -81,7 +83,7 @@ public class Listas {
 
     public static void removeFromUsando() {
         try {
-            Thread.sleep(5000, 10000);
+            Thread.sleep(random.nextInt(5000) + 5000);
             if(listaUsando.size() > 0) {
                 listaUsando.get(0).imprimeTermino();
                 listaUsando.remove(0); 

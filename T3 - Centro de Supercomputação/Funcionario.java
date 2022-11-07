@@ -51,13 +51,16 @@ public class Funcionario  implements Runnable {
         int funcionarioEscolhido;
         while(true) {            
             try {
+                
                 funcionarioEscolhido = random.nextInt(10);
                 if(funcionarioEscolhido == 0 || funcionarioEscolhido == 1) {
+                    
                     mutex.acquire();
                     Listas.addToEspera(this);
                     mutex.release();
-                    Thread.sleep(100, 1000);
+                    
                 }
+                Thread.sleep(random.nextInt(1500) + 1500);
                 
             } catch (InterruptedException e) {
                 e.printStackTrace();
