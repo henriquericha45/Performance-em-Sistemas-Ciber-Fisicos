@@ -14,9 +14,30 @@ public class Cache extends Memoria {
         pullCache(enderecoInicial);
     }
 
-    public int cacheHit() {
+    @Override
+    public int read(int endereco) throws EnderecoInvalido {
+        if(endereco < (this.enderecoInicial + capacidade-1) && endereco >= this.enderecoInicial) {
+            return dados[endereco - enderecoInicial];
+        } else {
+            pullCache(endereco);
+            return read(endereco);
+        }
+    }
 
-        return 0;
+    @Override
+    public void write(int endereco, int data) throws EnderecoInvalido {
+        if(endereco < (this.enderecoInicial + capacidade-1) && endereco >= this.enderecoInicial){
+            dados[endereco - enderecoInicial] = data;
+            modificado = true;
+        } else {
+            pullCache(endereco);
+            write(endereco, data);
+        }
+    }
+
+    public int cacheHit(int endereco) {
+        
+        return dados[endereco];
     }
 
     public void cacheMiss() {
@@ -45,26 +66,7 @@ public class Cache extends Memoria {
         }
     }
 
-    @Override
-    public int read(int endereco) throws EnderecoInvalido {
-        if(endereco < (this.enderecoInicial + capacidade-1) && endereco >= this.enderecoInicial) {
-            return dados[endereco - enderecoInicial];
-        } else {
-            pullCache(endereco);
-            return read(endereco);
-        }
-    }
-
-    @Override
-    public void write(int endereco, int data) throws EnderecoInvalido {
-        if(endereco < (this.enderecoInicial + capacidade-1) && endereco >= this.enderecoInicial){
-            dados[endereco - enderecoInicial] = data;
-            modificado = true;
-        } else {
-            pullCache(endereco);
-            write(endereco, data);
-        }
-    }
+    
     
     
 }

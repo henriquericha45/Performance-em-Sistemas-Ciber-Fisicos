@@ -6,7 +6,7 @@ public class Main {
             IO io = new IO(System.out);
             RAM ram = new RAM(128);
             Cache cache = new Cache(8, ram);
-            CPU cpu = new CPU(cache, io);
+            CPU cpu = new CPU(ram, io);
 
             final int inicio = 0;
 

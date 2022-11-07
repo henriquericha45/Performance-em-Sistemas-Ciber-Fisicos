@@ -26,8 +26,8 @@ class Contador2 implements Runnable {
 public class Main {
 
     public static void main(String[] args) throws InterruptedException {
-        System.out.println("PID: " + ProcessHandle.current().pid());
-        System.out.println("PID PAI: " + ProcessHandle.current().parent().get().pid());
+        System.out.println("PID: " + ProcessBuilder.current().pid());
+        System.out.println("PID PAI: " + ProcessBuilder.current().parent().get().pid());
 
         int N = Integer.parseInt(args[0]);
         //int N = 10;
