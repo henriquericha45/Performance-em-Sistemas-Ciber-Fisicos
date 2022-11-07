@@ -15,14 +15,18 @@ public class CSC implements Runnable {
     public void run() {
         while(true) {
             try {
+
                 mutex.acquire();
                 cheio.acquire();
-                
                 Listas.transfereEsperaParaUsando();
-                Listas.removeFromUsando();
-
                 mutex.release();
+                
+                Thread.sleep(5000, 10000);
+
+                mutex.acquire();
+                Listas.removeFromUsando();
                 cheio.release();
+                mutex.release();
 
                 
 

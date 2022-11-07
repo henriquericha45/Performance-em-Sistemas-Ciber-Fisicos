@@ -1,32 +1,68 @@
 import java.util.ArrayList;
+import java.util.concurrent.Semaphore;
 
 public class Listas {
-    private static ArrayList <Funcionario> listaDeEspera = new ArrayList<Funcionario>();
     private static ArrayList <Funcionario> listaFuncionarios = new ArrayList<Funcionario>();
     private static ArrayList <Funcionario> listaUsando = new ArrayList<Funcionario>();
+    private static ArrayList <Funcionario> listaEspera = new ArrayList<Funcionario>();
     Funcionario f = new Funcionario();
     
     public Listas() {
 
     }
 
-    public static void addToEspera(Funcionario f) {
-        if(listaDeEspera.size() == 0) {
-            listaDeEspera.add(f);
+    public static void tentaConexao(Funcionario f) {
+        if(!listaEspera.contains(f)) {
+            listaEspera.add(f);
             f.imprimeTentativa();
-        } else if(listaDeEspera.size() > 0) {
-            for(int i=0; i<listaDeEspera.size(); i++) {
-                if(!listaDeEspera.get(i).equals(f)) {
-                    listaDeEspera.add(f);
-                    f.imprimeTentativa();
-                    break;
+        }
+    }
+/* 
+    public static void transfereEsperaParaUsando(Semaphore cheio) throws InterruptedException {
+        for(int i=0; i<listaEspera.size(); i++) {
+            if(listaUsando.size() > 0){
+                if(listaUsando.get(0).getEmpresa() == listaEspera.get(i).getEmpresa()) {
+                    cheio.acquire();
+                    Funcionario f = listaEspera.get(i);
+                    listaUsando.add(f);
+                    listaEspera.remove(i);
+                    listaUsando.get(i).imprimeAcesso();
                 }
+            } else {
+                cheio.acquire();
+                Funcionario f = listaEspera.get(i);
+                listaUsando.add(f);
+                listaEspera.remove(i);
+                listaUsando.get(i).imprimeAcesso();
             }
+            
+        }
+    }
+*/
+
+    public static void transfereEsperaParaUsando() {
+        for(int i=0; i<listaEspera.size(); i++) {
+            if(listaUsando.size() > 0){
+                if(listaUsando.get(0).getEmpresa() == listaEspera.get(i).getEmpresa()) {
+                    Funcionario f = listaEspera.get(i);
+                    listaUsando.add(f);
+                    listaEspera.remove(i);
+                    listaUsando.get(i).imprimeAcesso();
+                }
+            } else {
+                Funcionario f = listaEspera.get(i);
+                listaUsando.add(f);
+                listaEspera.remove(i);
+                listaUsando.get(i).imprimeAcesso();
+            }   
         }
     }
 
-    public static void removeFromEspera(int indice) {
-        listaDeEspera.remove(indice);
+    public static void removeFromUsando() {
+        for(int i=0; i<listaUsando.size(); i++) {
+            listaUsando.remove(i);
+            listaUsando.get(i).imprimeTermino();
+        }
     }
 
     public static void addToFuncionarios(Funcionario f) {
@@ -41,62 +77,10 @@ public class Listas {
         listaUsando.add(f);
     }
 
-    public static void printaListaEspera() {
-        for(int i=0; i<listaDeEspera.size(); i++) {
-            System.out.println(listaDeEspera.get(i).getNome());
-        }
-    }
-
-    public static void printaListaFuncionarios() {
-        for(int i=0; i<listaFuncionarios.size(); i++) {
-            System.out.println(listaFuncionarios.get(i).getNome());
-        }
-    }
-
-    public static void printaListaUsando() {
-        for(int i=0; i<listaUsando.size(); i++) {
-            System.out.println(listaUsando.get(i).getNome());
-        }
-    }
-
-    public static void transfereEsperaParaUsando() {
-        if(listaUsando.size() == 0 && listaDeEspera.size() > 0) {
-            Funcionario f = listaDeEspera.get(0);
-            listaUsando.add(f);
-            listaDeEspera.remove(0);
-            f.imprimeAcesso();
-        } 
-        if(listaUsando.size() != 0 && listaDeEspera.size() != 0) {
-            for(int i=0; i<listaDeEspera.size(); i++) {
-                if(listaDeEspera.get(i).getEmpresa() == listaUsando.get(0).getEmpresa()) {
-                    Funcionario f = listaDeEspera.get(i);
-                    listaUsando.add(f);
-                    listaDeEspera.remove(i);
-                    f.imprimeAcesso();
-                    break;
-                }
-            }
-        }
-    }
-
-    public static void removeFromUsando() {
-        try {
-            Thread.sleep(5000, 10000);
-            if(listaUsando.size() > 0) {
-                listaUsando.get(0).imprimeTermino();
-                listaUsando.remove(0); 
-            }
-            
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void imprimeListaDeEspera() {
-        System.out.println("Lista de espera:");
-        for(int i=0; i<listaDeEspera.size(); i++) {
-            System.out.println(listaDeEspera.get(i).getNome() + " [" + listaDeEspera.get(i).getEmpresa() + "]");
-        }
+    public static void printaTamanho() {
+        System.out.println("Tamanho da lista de funcionarios: " + listaFuncionarios.size());
+        System.out.println("Tamanho da lista de usando: " + listaUsando.size());
+        System.out.println("Tamanho da lista de espera: " + listaEspera.size());
     }
 
 }
