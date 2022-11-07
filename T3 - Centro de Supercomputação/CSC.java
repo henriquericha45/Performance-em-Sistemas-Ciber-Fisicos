@@ -18,10 +18,13 @@ public class CSC implements Runnable {
                 mutex.acquire();
                 cheio.acquire();
                 
-                // transfere
+                Listas.transfereEsperaParaUsando();
+                Listas.removeFromUsando();
 
                 mutex.release();
-                vazio.release();
+                cheio.release();
+
+                
 
             } catch (InterruptedException e) {
                 e.printStackTrace();

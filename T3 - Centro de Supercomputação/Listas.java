@@ -11,9 +11,17 @@ public class Listas {
     }
 
     public static void addToEspera(Funcionario f) {
-        if(!listaDeEspera.contains(f)) {
+        if(listaDeEspera.size() == 0) {
             listaDeEspera.add(f);
             f.imprimeTentativa();
+        } else if(listaDeEspera.size() > 0) {
+            for(int i=0; i<listaDeEspera.size(); i++) {
+                if(!listaDeEspera.get(i).equals(f)) {
+                    listaDeEspera.add(f);
+                    f.imprimeTentativa();
+                    break;
+                }
+            }
         }
     }
 
@@ -31,10 +39,6 @@ public class Listas {
 
     public static void addToUsando(Funcionario f) {
         listaUsando.add(f);
-    }
-
-    public static void removeFromUsando(int indice) {
-        listaUsando.remove(indice);
     }
 
     public static void printaListaEspera() {
@@ -55,14 +59,43 @@ public class Listas {
         }
     }
 
-    public static void transfereEsperaParaUsando(Funcionario f) {
-        for(int i=0; i<listaDeEspera.size(); i++) {
-            if(listaDeEspera.get(i).getEmpresa() == f.getEmpresa()) {
-                Funcionario func = listaDeEspera.get(i);
-                listaUsando.add(func);
-                listaDeEspera.remove(i);
-                func.imprimeAcesso();
+    public static void transfereEsperaParaUsando() {
+        if(listaUsando.size() == 0 && listaDeEspera.size() > 0) {
+            Funcionario f = listaDeEspera.get(0);
+            listaUsando.add(f);
+            listaDeEspera.remove(0);
+            f.imprimeAcesso();
+        } 
+        if(listaUsando.size() != 0 && listaDeEspera.size() != 0) {
+            for(int i=0; i<listaDeEspera.size(); i++) {
+                if(listaDeEspera.get(i).getEmpresa() == listaUsando.get(0).getEmpresa()) {
+                    Funcionario f = listaDeEspera.get(i);
+                    listaUsando.add(f);
+                    listaDeEspera.remove(i);
+                    f.imprimeAcesso();
+                    break;
+                }
             }
+        }
+    }
+
+    public static void removeFromUsando() {
+        try {
+            Thread.sleep(5000, 10000);
+            if(listaUsando.size() > 0) {
+                listaUsando.get(0).imprimeTermino();
+                listaUsando.remove(0); 
+            }
+            
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void imprimeListaDeEspera() {
+        System.out.println("Lista de espera:");
+        for(int i=0; i<listaDeEspera.size(); i++) {
+            System.out.println(listaDeEspera.get(i).getNome() + " [" + listaDeEspera.get(i).getEmpresa() + "]");
         }
     }
 

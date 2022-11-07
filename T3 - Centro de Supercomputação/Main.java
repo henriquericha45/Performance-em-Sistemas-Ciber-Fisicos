@@ -8,7 +8,7 @@ class Main {
         Thread [] empresaA = new Thread[N];
         Thread [] empresaB = new Thread[N];
         Semaphore vazio = new Semaphore(10);
-        Semaphore cheio = new Semaphore(0);
+        Semaphore cheio = new Semaphore(3);
         Semaphore mutex = new Semaphore(1);
         Listas lista = new Listas();
 
@@ -39,8 +39,12 @@ class Main {
         // Inicializa a thread do CSC
         Thread csc = new Thread(new CSC(vazio, cheio, mutex));
         csc.start();
-
-        
+/* 
+        while(true){
+            System.out.println("lista de espera: ");
+            Listas.imprimeListaDeEspera();
+            System.out.println("lista de funcionarios: ");
+        }
         
         // Espera as threads da empresa A terminarem
         for (int i=0; i<N; ++i) {
@@ -51,6 +55,7 @@ class Main {
         for (int i=0; i<N; ++i) {
             empresaB[i].join();
         }
+        */
     }
 
 
