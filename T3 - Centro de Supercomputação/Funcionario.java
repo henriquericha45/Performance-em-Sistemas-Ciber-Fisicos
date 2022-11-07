@@ -40,11 +40,11 @@ public class Funcionario  implements Runnable {
     }
 
     public void imprimeAcesso() {
-        System.out.println("+ " + this.nome + " [" + this.empresa + "] acessou");
+        System.out.println("    + " + this.nome + " [" + this.empresa + "] acessou");
     }
 
     public void imprimeTermino() {
-        System.out.println("- " + this.nome + " [" + this.empresa + "] terminou acesso");
+        System.out.println("    - " + this.nome + " [" + this.empresa + "] terminou acesso");
     }
 
     public void run() {
@@ -52,15 +52,15 @@ public class Funcionario  implements Runnable {
         while(true) {            
             try {
                 
-                funcionarioEscolhido = random.nextInt(10);
-                if(funcionarioEscolhido == 0 || funcionarioEscolhido == 1) {
+                funcionarioEscolhido = random.nextInt(20);
+                if(funcionarioEscolhido == 0) {
                     
                     mutex.acquire();
                     Listas.addToEspera(this);
                     mutex.release();
                     
                 }
-                Thread.sleep(random.nextInt(1500) + 1500);
+                Thread.sleep(random.nextInt(5000) + 5000);
                 
             } catch (InterruptedException e) {
                 e.printStackTrace();

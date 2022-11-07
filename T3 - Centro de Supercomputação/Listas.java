@@ -82,16 +82,12 @@ public class Listas {
     }
 
     public static void removeFromUsando() {
-        try {
-            Thread.sleep(random.nextInt(5000) + 5000);
-            if(listaUsando.size() > 0) {
-                listaUsando.get(0).imprimeTermino();
-                listaUsando.remove(0); 
-            }
             
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        if(listaUsando.size() > 0) {
+            listaUsando.get(0).imprimeTermino();
+            listaUsando.remove(0); 
         }
+            
     }
 
     public static void imprimeListaDeEspera() {
